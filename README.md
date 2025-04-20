@@ -44,84 +44,60 @@ Only products 1 and 3 are both low fat (`low_fats = 'Y'`) and recyclable (`recyc
 ```sql
 SELECT product_id
 FROM products
-WHERE low_fats ="Y" AND recyclable ="Y"
+WHERE low_fats ="Y" AND recyclable ="Y";
 ```
 
 2. Find Customer Referee
-3.  SQL Question
-Table: Customer
-
-Column Name	Type
-id	int
-name	varchar
-referee_id	int
-In SQL, id is the primary key column for this table.
-
-Each row of this table indicates:
-
-the id of a customer,
-
-their name,
-
-and the id of the customer who referred them (referee_id).
-
-❓ Task
-Find the names of the customers that are not referred by the customer with id = 2.
-
-Return the result table in any order.
-
-📥 Example 1
-Input:
-Customer Table:
-
-
-id	name	referee_id
-1	Will	null
-2	Jane	null
-3	Alex	2
-4	Bill	null
-5	Zack	1
-6	Mark	2
-Output:
-
-name
-Will
-Jane
-Bill
-Zack
-
 ```sql
-
+SELECT name
+FROM Customer
+WHERE referee_id <>2 OR referee_id is NULL;
 ```
 
 3. Big Countries  
 ```sql
-
+SELECT name, population, area
+FROM World
+WHERE area >= 3000000 OR population >=25000000;
 ```
 
 4. Article Views I  
 ```sql
-
+SELECT DISTINCT author_id AS id
+FROM views
+WHERE author_id = viewer_id
+ORDER BY author_id;
 ```
 
 5. Invalid Tweets  
 ```sql
-
+SELECT tweet_id
+FROM Tweets
+WHERE LENGTH(content)>15;
 ```
 
 6. Basic Joins – Replace Employee ID With The Unique Identifier  
 ```sql
-
+SELECT eu.unique_id, e.name
+FROM Employees e
+LEFT JOIN EmployeeUNI eu
+ON e.id=eu.id;
 ```
 
 7. Product Sales Analysis I  
 ```sql
-
+SELECT p.product_name,s.year,s.price
+FROM Sales s
+JOIN Product p
+ON s.product_id=p.product_id;
 ```
 
 8. Customer Who Visited but Did Not Make Any Transactions  
 ```sql
-
+SELECT customer_id, count(*) AS count_no_trans
+FROM Visits
+WHERE visit_id NOT IN (SELECT visit_id FROM Transactions)
+GROUP BY customer_id;
 ```
 
 9. Rising Temperature  
