@@ -6,40 +6,8 @@
 ## Questions
 
 1. Select Recyclable and Low Fat Products
-Table: Products
 
-# SQL Problem: Find Low Fat and Recyclable Products
-
-## Table Structure: Products
-
-| Column Name | Type | Description |
-|------------|------|-------------|
-| product_id | int | Primary key |
-| low_fats | enum | 'Y' for low fat, 'N' for not |
-| recyclable | enum | 'Y' for recyclable, 'N' for not |
-
-## Example Data
-
-### Input Table: Products
-
-| product_id | low_fats | recyclable |
-|------------|----------|------------|
-| 0 | Y | N |
-| 1 | Y | Y |
-| 2 | N | Y |
-| 3 | Y | Y |
-| 4 | N | N |
-
-### Expected Output
-
-| product_id |
-|------------|
-| 1 |
-| 3 |
-
-## Explanation
-Only products 1 and 3 are both low fat (`low_fats = 'Y'`) and recyclable (`recyclable = 'Y'`).
-
+## Solution
 
 ```sql
 SELECT product_id
@@ -49,56 +17,7 @@ WHERE low_fats ="Y" AND recyclable ="Y";
 
 2. Find Customer Referee
 
-Table: Customer
-    
-+-------------+---------+
-| Column Name | Type    |
-+-------------+---------+
-| id          | int     |
-| name        | varchar |
-| referee_id  | int     |
-+-------------+---------+
-
-    
-
-    
-In SQL, id is the primary key column for this table.
-Each row of this table indicates the id of a customer, their name, and the id of the customer who referred them.
-
-Write an SQL query to find the names of the customer that are not referred by the customer with id = 2.
-
-Return the result table in any order.
-
-Example 1:
-Input:
-
-    
-Customer table:
-+----+------+------------+
-| id | name | referee_id |
-+----+------+------------+
-| 1  | Will | null       |
-| 2  | Jane | null       |
-| 3  | Alex | 2          |
-| 4  | Bill | null       |
-| 5  | Zack | 1          |
-| 6  | Mark | 2          |
-+----+------+------------+
-
-    
-
-    
-Output:
-
-    
-+------+
-| name |
-+------+
-| Will |
-| Jane |
-| Bill |
-| Zack |
-+------+
+## Solution
 
 ```sql
 SELECT name
@@ -106,14 +25,20 @@ FROM Customer
 WHERE referee_id <>2 OR referee_id is NULL;
 ```
 
-3. Big Countries  
+3. Big Countries
+
+## Solution
+
 ```sql
 SELECT name, population, area
 FROM World
 WHERE area >= 3000000 OR population >=25000000;
 ```
 
-4. Article Views I  
+4. Article Views I
+
+## Solution
+  
 ```sql
 SELECT DISTINCT author_id AS id
 FROM views
@@ -121,7 +46,10 @@ WHERE author_id = viewer_id
 ORDER BY author_id;
 ```
 
-5. Invalid Tweets  
+5. Invalid Tweets 
+
+## Solution
+
 ```sql
 SELECT tweet_id
 FROM Tweets
@@ -129,6 +57,9 @@ WHERE LENGTH(content)>15;
 ```
 
 6. Basic Joins – Replace Employee ID With The Unique Identifier  
+
+## Solution
+
 ```sql
 SELECT eu.unique_id, e.name
 FROM Employees e
@@ -136,7 +67,10 @@ LEFT JOIN EmployeeUNI eu
 ON e.id=eu.id;
 ```
 
-7. Product Sales Analysis I  
+7. Product Sales Analysis I
+
+## Solution
+
 ```sql
 SELECT p.product_name,s.year,s.price
 FROM Sales s
@@ -144,7 +78,10 @@ JOIN Product p
 ON s.product_id=p.product_id;
 ```
 
-8. Customer Who Visited but Did Not Make Any Transactions  
+8. Customer Who Visited but Did Not Make Any Transactions
+
+## Solution
+ 
 ```sql
 SELECT customer_id, count(*) AS count_no_trans
 FROM Visits
@@ -152,62 +89,98 @@ WHERE visit_id NOT IN (SELECT visit_id FROM Transactions)
 GROUP BY customer_id;
 ```
 
-9. Rising Temperature  
+9. Rising Temperature 
+
+## Solution
+ 
 ```sql
 
 ```
 
 10. Average Time of Process per Machine  
+
+## Solution
+
 ```sql
 
 ```
 
 11. Employee Bonus  
+
+## Solution
+
 ```sql
 
 ```
 
 12. Students and Examinations  
+
+## Solution
+
 ```sql
 
 ```
 
-13. Managers with at Least 5 Direct Reports  
+13. Managers with at Least 5 Direct Reports 
+
+## Solution
+ 
 ```sql
 
 ```
 
 14. Confirmation Rate  
+
+## Solution
+
 ```sql
 
 ```
 
 15. Basic Aggregate Functions – Not Boring Movies  
+
+## Solution
+
 ```sql
 
 ```
 
 16. Average Selling Price  
+
+## Solution
+
 ```sql
 
 ```
 
 17. Project Employees I  
+
+## Solution
+
 ```sql
 
 ```
 
 18. Percentage of Users Attended a Contest  
+
+## Solution
+
 ```sql
 
 ```
 
 19. Queries Quality and Percentage  
+
+## Solution
+
 ```sql
 
 ```
 
 20. Monthly Transactions I  
+
+## Solution
+
 ```sql
 
 ```
