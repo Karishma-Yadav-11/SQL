@@ -94,7 +94,11 @@ GROUP BY customer_id;
 ## Solution
  
 ```sql
-
+SELECT w1.id
+FROM Weather w1
+INNER JOIN Weather w2
+ON DATEDIFF(w1.recordDate ,w2.recordDate) =1 
+AND w1.temperature > w2.temperature;
 ```
 
 10. Average Time of Process per Machine  
@@ -102,7 +106,14 @@ GROUP BY customer_id;
 ## Solution
 
 ```sql
-
+SELECT a1.machine_id, ROUND(AVG(a2.timestamp - a1.timestamp),3) AS processing_time
+FROM Activity a1
+JOIN Activity a2
+ON a1.machine_id = a2.machine_id
+AND a1.process_id = a2.process_id
+AND a1.activity_type = 'start'
+AND a2.activity_type = 'end'
+GROUP BY a1.machine_id;
 ```
 
 11. Employee Bonus  
@@ -110,7 +121,11 @@ GROUP BY customer_id;
 ## Solution
 
 ```sql
-
+SELECT e.name, b.bonus
+FROM Employee e
+LEFT JOIN Bonus b
+ON e.empID = b.empID
+WHERE b.bonus IS NULL OR b.bonus < 1000;
 ```
 
 12. Students and Examinations  
@@ -118,7 +133,14 @@ GROUP BY customer_id;
 ## Solution
 
 ```sql
-
+SELECT s.student_id, s.student_name, sub.subject_name, COUNT(e.subject_name) AS attended_exams 
+FROM Students s
+CROSS JOIN Subjects sub
+LEFT JOIN Examinations e
+ON s.student_id  = e.student_id
+AND sub.subject_name = e.subject_name
+GROUP BY s.student_id, sub.subject_name
+ORDER BY s.student_id, sub.subject_name;
 ```
 
 13. Managers with at Least 5 Direct Reports 
@@ -126,7 +148,12 @@ GROUP BY customer_id;
 ## Solution
  
 ```sql
-
+SELECT e1.name
+FROM Employee e1
+INNER JOIN Employee e2
+ON e1.id = e2.managerId
+GROUP BY e2.managerId
+HAVING COUNT(e2.managerId) >=5;
 ```
 
 14. Confirmation Rate  
