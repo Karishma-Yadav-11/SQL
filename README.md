@@ -161,7 +161,21 @@ HAVING COUNT(e2.managerId) >=5;
 ## Solution
 
 ```sql
+SELECT s.user_id, IFNULL(ROUND(COUNT(CASE WHEN action='confirmed' THEN 1 END)/COUNT(*),2),0.00) AS confirmation_rate
+FROM Signups s
+LEFT JOIN Confirmations c
+ON s.user_id = c.user_id
+GROUP BY s.user_id;
+```
 
+OR
+
+```sql
+SELECT s.user_id, IFNULL(ROUND(SUM(action= 'confirmed')/COUNT(*),2),0.00) AS confirmation_rate
+FROM Signups s
+LEFT JOIN Confirmations c
+ON s.user_id = c.user_id
+GROUP BY s.user_id;
 ```
 
 15. Basic Aggregate Functions – Not Boring Movies  
@@ -169,7 +183,10 @@ HAVING COUNT(e2.managerId) >=5;
 ## Solution
 
 ```sql
-
+SELECT id, movie, description, rating
+FROM Cinema
+WHERE id%2 !=0 AND description<> 'boring'
+ORDER BY rating DESC;
 ```
 
 16. Average Selling Price  
@@ -177,7 +194,11 @@ HAVING COUNT(e2.managerId) >=5;
 ## Solution
 
 ```sql
-
+SELECT p.product_id, IFNULL(ROUND(SUM(p.price * u.units)/SUM(u.units),2),0) AS average_price
+FROM Prices p
+LEFT JOIN UnitsSold u
+ON p.product_id = u.product_id AND u.purchase_date BETWEEN p.start_date AND p.end_date
+GROUP BY p.product_id;
 ```
 
 17. Project Employees I  
@@ -185,7 +206,11 @@ HAVING COUNT(e2.managerId) >=5;
 ## Solution
 
 ```sql
-
+SELECT p.project_id, ROUND(AVG(experience_years),2) AS average_years
+FROM Project p
+LEFT JOIN Employee e
+ON p.employee_id = e.employee_id
+GROUP BY p.project_id;
 ```
 
 18. Percentage of Users Attended a Contest  
@@ -193,7 +218,10 @@ HAVING COUNT(e2.managerId) >=5;
 ## Solution
 
 ```sql
-
+SELECT contest_id, ROUND(COUNT(DISTINCT user_id)*100/(SELECT COUNT(user_id) FROM Users),2) AS percentage
+FROM Register
+GROUP BY contest_id
+ORDER BY percentage DESC, contest_id;
 ```
 
 19. Queries Quality and Percentage  
