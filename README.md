@@ -229,7 +229,9 @@ ORDER BY percentage DESC, contest_id;
 ## Solution
 
 ```sql
-
+SELECT query_name, ROUND(AVG(rating/position) ,2) AS quality, ROUND((AVG(IF(rating <3,1,0)) *100),2) AS poor_query_percentage
+FROM Queries
+GROUP BY query_name;
 ```
 
 20. Monthly Transactions I  
@@ -237,7 +239,15 @@ ORDER BY percentage DESC, contest_id;
 ## Solution
 
 ```sql
-
+SELECT 
+    DATE_FORMAT(trans_date, '%Y-%m') AS month
+    ,country
+    ,COUNT(id) AS trans_count
+    ,SUM(state='approved') AS approved_count
+    ,SUM(amount) AS trans_total_amount
+    ,SUM(IF(state='approved', amount, 0)) AS approved_total_amount
+FROM Transactions
+GROUP BY month, country;
 ```
 
 21. Immediate Food Delivery II  
