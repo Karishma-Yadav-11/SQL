@@ -25,6 +25,14 @@ FROM Customer
 WHERE referee_id <>2 OR referee_id is NULL;
 ```
 
+OR
+
+```sql
+SELECT name
+FROM Customer
+WHERE IFNULL(referee_id,0) !=2;
+```
+
 3. Big Countries
 
 ## Solution
@@ -252,52 +260,93 @@ GROUP BY month, country;
 
 21. Immediate Food Delivery II  
 ```sql
-
+SELECT ROUND(SUM(IF(order_date = customer_pref_delivery_date,1,0))*100/COUNT(customer_id),2) AS immediate_percentage
+FROM Delivery
+WHERE (customer_id,order_date) IN (
+    SELECT customer_id, MIN(order_date)
+    FROM Delivery
+    GROUP BY customer_id);
 ```
 
 22. Game Play Analysis IV  
 ```sql
-
+SELECT ROUND(COUNT(DISTINCT player_id)/ (SELECT COUNT( DISTINCT player_id) FROM Activity),2) AS fraction
+FROM Activity
+WHERE (player_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN (
+    SELECT player_id, MIN(event_date) AS first_date
+    FROM Activity
+    GROUP BY player_id);
 ```
 
 23. Sorting and Grouping – Number of Unique Subjects Taught by Each Teacher  
 ```sql
-
+SELECT teacher_id, COUNT(DISTINCT subject_id) AS cnt
+FROM Teacher
+GROUP BY teacher_id;
 ```
 
 24. User Activity for the Past 30 Days I  
 ```sql
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users
+FROM Activity
+WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27'
+GROUP BY day;
 
 ```
 
 25. Product Sales Analysis III  
 ```sql
-
+SELECT product_id, year AS first_year, quantity, price
+FROM Sales
+WHERE (product_id, year) IN(
+    SELECT product_id, MIN(year) AS fy
+    FROM Sales
+    GROUP BY product_id);
 ```
 
 26. Classes More Than 5 Students  
 ```sql
-
+SELECT class
+FROM Courses
+GROUP BY class
+HAVING count(student)>=5;
 ```
 
 27. Find Followers Count  
 ```sql
-
+SELECT user_id, count(follower_id) AS followers_count
+FROM Followers
+GROUP BY user_id
+ORDER BY user_id;
 ```
 
 28. Biggest Single Number  
 ```sql
-
+SELECT MAX(num) AS num
+FROM MyNumbers
+WHERE num IN(
+    SELECT num
+    FROM MyNumbers 
+    GROUP BY num
+    HAVING COUNT(*) = 1);
 ```
 
 29. Customers Who Bought All Products  
 ```sql
-
+SELECT customer_id
+FROM Customer
+GROUP BY customer_id
+HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(DISTINCT product_key) FROM Product);
 ```
 
 30. Advanced Select and Joins – The Number of Employees Which Report to Each Employee  
 ```sql
-
+SELECT e1.employee_id, e1.name, COUNT(e2.employee_id) AS reports_count, ROUND(AVG(e2.age)) AS average_age
+FROM Employees e1
+INNER JOIN Employees e2
+ON e1.employee_id = e2.reports_to
+GROUP BY e1.employee_id
+ORDER BY e1.employee_id;
 ```
 
 31. Primary Department for Each Employee  
