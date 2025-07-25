@@ -5,7 +5,7 @@
 
 ## Questions
 
-1. Select Recyclable and Low Fat Products
+# 1. Select Recyclable and Low Fat Products
 
 ## Solution
 
@@ -15,7 +15,7 @@ FROM products
 WHERE low_fats ="Y" AND recyclable ="Y";
 ```
 
-2. Find Customer Referee
+# 2. Find Customer Referee
 
 ## Solution
 
@@ -33,7 +33,7 @@ FROM Customer
 WHERE IFNULL(referee_id,0) !=2;
 ```
 
-3. Big Countries
+# 3. Big Countries
 
 ## Solution
 
@@ -43,7 +43,7 @@ FROM World
 WHERE area >= 3000000 OR population >=25000000;
 ```
 
-4. Article Views I
+# 4. Article Views I
 
 ## Solution
   
@@ -54,7 +54,7 @@ WHERE author_id = viewer_id
 ORDER BY author_id;
 ```
 
-5. Invalid Tweets 
+# 5. Invalid Tweets 
 
 ## Solution
 
@@ -64,7 +64,7 @@ FROM Tweets
 WHERE LENGTH(content)>15;
 ```
 
-6. Basic Joins – Replace Employee ID With The Unique Identifier  
+# 6. Basic Joins – Replace Employee ID With The Unique Identifier  
 
 ## Solution
 
@@ -75,7 +75,7 @@ LEFT JOIN EmployeeUNI eu
 ON e.id=eu.id;
 ```
 
-7. Product Sales Analysis I
+# 7. Product Sales Analysis I
 
 ## Solution
 
@@ -86,7 +86,7 @@ JOIN Product p
 ON s.product_id=p.product_id;
 ```
 
-8. Customer Who Visited but Did Not Make Any Transactions
+# 8. Customer Who Visited but Did Not Make Any Transactions
 
 ## Solution
  
@@ -97,7 +97,7 @@ WHERE visit_id NOT IN (SELECT visit_id FROM Transactions)
 GROUP BY customer_id;
 ```
 
-9. Rising Temperature 
+# 9. Rising Temperature 
 
 ## Solution
  
@@ -109,7 +109,7 @@ ON DATEDIFF(w1.recordDate ,w2.recordDate) =1
 AND w1.temperature > w2.temperature;
 ```
 
-10. Average Time of Process per Machine  
+# 10. Average Time of Process per Machine  
 
 ## Solution
 
@@ -124,7 +124,7 @@ AND a2.activity_type = 'end'
 GROUP BY a1.machine_id;
 ```
 
-11. Employee Bonus  
+# 11. Employee Bonus  
 
 ## Solution
 
@@ -136,7 +136,7 @@ ON e.empID = b.empID
 WHERE b.bonus IS NULL OR b.bonus < 1000;
 ```
 
-12. Students and Examinations  
+# 12. Students and Examinations  
 
 ## Solution
 
@@ -151,7 +151,7 @@ GROUP BY s.student_id, sub.subject_name
 ORDER BY s.student_id, sub.subject_name;
 ```
 
-13. Managers with at Least 5 Direct Reports 
+# 13. Managers with at Least 5 Direct Reports 
 
 ## Solution
  
@@ -164,7 +164,7 @@ GROUP BY e2.managerId
 HAVING COUNT(e2.managerId) >=5;
 ```
 
-14. Confirmation Rate  
+# 14. Confirmation Rate  
 
 ## Solution
 
@@ -186,7 +186,7 @@ ON s.user_id = c.user_id
 GROUP BY s.user_id;
 ```
 
-15. Basic Aggregate Functions – Not Boring Movies  
+# 15. Basic Aggregate Functions – Not Boring Movies  
 
 ## Solution
 
@@ -197,7 +197,7 @@ WHERE id%2 !=0 AND description<> 'boring'
 ORDER BY rating DESC;
 ```
 
-16. Average Selling Price  
+# 16. Average Selling Price  
 
 ## Solution
 
@@ -209,7 +209,7 @@ ON p.product_id = u.product_id AND u.purchase_date BETWEEN p.start_date AND p.en
 GROUP BY p.product_id;
 ```
 
-17. Project Employees I  
+# 17. Project Employees I  
 
 ## Solution
 
@@ -221,7 +221,7 @@ ON p.employee_id = e.employee_id
 GROUP BY p.project_id;
 ```
 
-18. Percentage of Users Attended a Contest  
+# 18. Percentage of Users Attended a Contest  
 
 ## Solution
 
@@ -232,7 +232,7 @@ GROUP BY contest_id
 ORDER BY percentage DESC, contest_id;
 ```
 
-19. Queries Quality and Percentage  
+# 19. Queries Quality and Percentage  
 
 ## Solution
 
@@ -242,7 +242,7 @@ FROM Queries
 GROUP BY query_name;
 ```
 
-20. Monthly Transactions I  
+# 20. Monthly Transactions I  
 
 ## Solution
 
@@ -258,7 +258,7 @@ FROM Transactions
 GROUP BY month, country;
 ```
 
-21. Immediate Food Delivery II   
+# 21. Immediate Food Delivery II   
 
 ## Solution
 
@@ -271,7 +271,7 @@ WHERE (customer_id,order_date) IN (
     GROUP BY customer_id);
 ```
 
-22. Game Play Analysis IV  
+# 22. Game Play Analysis IV  
 
 ## Solution
 
@@ -284,7 +284,7 @@ WHERE (player_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN (
     GROUP BY player_id);
 ```
 
-23. Sorting and Grouping – Number of Unique Subjects Taught by Each Teacher 
+# 23. Sorting and Grouping – Number of Unique Subjects Taught by Each Teacher 
 
 ## Solution
  
@@ -294,7 +294,7 @@ FROM Teacher
 GROUP BY teacher_id;
 ```
 
-24. User Activity for the Past 30 Days I  
+# 24. User Activity for the Past 30 Days I  
 
 ## Solution
 
@@ -306,7 +306,7 @@ GROUP BY day;
 
 ```
 
-25. Product Sales Analysis III  
+# 25. Product Sales Analysis III  
 
 ## Solution
 
@@ -319,7 +319,7 @@ WHERE (product_id, year) IN(
     GROUP BY product_id);
 ```
 
-26. Classes More Than 5 Students  
+# 26. Classes More Than 5 Students  
 
 ## Solution
 
@@ -330,7 +330,7 @@ GROUP BY class
 HAVING count(student)>=5;
 ```
 
-27. Find Followers Count  
+# 27. Find Followers Count  
 
 ## Solution
 
@@ -341,7 +341,7 @@ GROUP BY user_id
 ORDER BY user_id;
 ```
 
-28. Biggest Single Number  
+# 28. Biggest Single Number  
 
 ## Solution
 
@@ -355,7 +355,7 @@ WHERE num IN(
     HAVING COUNT(*) = 1);
 ```
 
-29. Customers Who Bought All Products  
+# 29. Customers Who Bought All Products  
 
 ## Solution
 
@@ -366,7 +366,7 @@ GROUP BY customer_id
 HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(DISTINCT product_key) FROM Product);
 ```
 
-30. Advanced Select and Joins – The Number of Employees Which Report to Each Employee  
+# 30. Advanced Select and Joins – The Number of Employees Which Report to Each Employee  
 
 ## Solution
 
@@ -379,9 +379,9 @@ GROUP BY e1.employee_id
 ORDER BY e1.employee_id;
 ```
 
-## 31. Primary Department for Each Employee  
+# 31. Primary Department for Each Employee  
 
-# Solution
+## Solution
 
 ```sql
 SELECT DISTINCT employee_id, department_id
@@ -395,7 +395,26 @@ WHERE employee_id IN(
 ORDER BY employee_id;
 ```
 
-32. Triangle Judgement  
+# 32. Triangle Judgement  
+
+## Solution
+
+```sql
+SELECT *, IF (x+y > z AND y+z >x AND x+z >y, 'Yes', 'No') AS triangle
+FROM Triangle;
+```
+
+# 33. Consecutive Numbers  
+
+## Solution
+
+```sql
+SELECT DISTINCT l1.num AS ConsecutiveNums
+FROM Logs l1, Logs l2, Logs l3
+WHERE l1.id = l2.id-1 AND l2.id = l3.id-1 AND l1.num = l2.num AND l2.num = l3.num;
+```
+
+# 34. Product Price at a Given Date  
 
 ## Solution
 
@@ -403,7 +422,7 @@ ORDER BY employee_id;
 
 ```
 
-33. Consecutive Numbers  
+# 35. Last Person to Fit in the Bus  
 
 ## Solution
 
@@ -411,23 +430,7 @@ ORDER BY employee_id;
 
 ```
 
-34. Product Price at a Given Date  
-
-## Solution
-
-```sql
-
-```
-
-35. Last Person to Fit in the Bus  
-
-## Solution
-
-```sql
-
-```
-
-36. Count Salary Categories 
+# 36. Count Salary Categories 
 
 ## Solution
  
@@ -435,7 +438,7 @@ ORDER BY employee_id;
 
 ```
 
-37. Subqueries – Employees Whose Manager Left the Company  
+# 37. Subqueries – Employees Whose Manager Left the Company  
 
 ## Solution
 
@@ -443,7 +446,7 @@ ORDER BY employee_id;
 
 ```
 
-38. Exchange Seats
+# 38. Exchange Seats
 
 ## Solution
   
@@ -451,7 +454,7 @@ ORDER BY employee_id;
 
 ```
 
-39. Movie Rating  
+# 39. Movie Rating  
 
 ## Solution
 
@@ -459,7 +462,7 @@ ORDER BY employee_id;
 
 ```
 
-40. Restaurant Growth  
+# 40. Restaurant Growth  
 
 ## Solution
 
@@ -467,7 +470,7 @@ ORDER BY employee_id;
 
 ```
 
-41. Friend Requests II: Who Has the Most Friends  
+# 41. Friend Requests II: Who Has the Most Friends  
 
 ## Solution
 
@@ -475,7 +478,7 @@ ORDER BY employee_id;
 
 ```
 
-42. Investments in 2016  
+# 42. Investments in 2016  
 
 ## Solution
 
@@ -483,7 +486,7 @@ ORDER BY employee_id;
 
 ```
 
-43. Department Top Three Salaries  
+# 43. Department Top Three Salaries  
 
 ## Solution
 
@@ -491,7 +494,7 @@ ORDER BY employee_id;
 
 ```
 
-44. Advanced String Functions / Regex / Clause – Fix Names in a Table  
+# 44. Advanced String Functions / Regex / Clause – Fix Names in a Table  
 
 ## Solution
 
@@ -499,7 +502,7 @@ ORDER BY employee_id;
 
 ```
 
-45. Patients With a Condition  
+# 45. Patients With a Condition  
 
 ## Solution
 
@@ -507,23 +510,7 @@ ORDER BY employee_id;
 
 ```
 
-46. Delete Duplicate Emails 
-
-## Solution
- 
-```sql
-
-```
-
-47. Second Highest Salary  
-
-## Solution
-
-```sql
-
-```
-
-48. Group Sold Products By The Date 
+# 46. Delete Duplicate Emails 
 
 ## Solution
  
@@ -531,7 +518,7 @@ ORDER BY employee_id;
 
 ```
 
-49. List the Products Ordered in a Period  
+# 47. Second Highest Salary  
 
 ## Solution
 
@@ -539,7 +526,23 @@ ORDER BY employee_id;
 
 ```
 
-50. Find Users With Valid E-Mails  
+# 48. Group Sold Products By The Date 
+
+## Solution
+ 
+```sql
+
+```
+
+# 49. List the Products Ordered in a Period  
+
+## Solution
+
+```sql
+
+```
+
+# 50. Find Users With Valid E-Mails  
 
 ## Solution
 
