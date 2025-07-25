@@ -258,7 +258,10 @@ FROM Transactions
 GROUP BY month, country;
 ```
 
-21. Immediate Food Delivery II  
+21. Immediate Food Delivery II   
+
+## Solution
+
 ```sql
 SELECT ROUND(SUM(IF(order_date = customer_pref_delivery_date,1,0))*100/COUNT(customer_id),2) AS immediate_percentage
 FROM Delivery
@@ -269,6 +272,9 @@ WHERE (customer_id,order_date) IN (
 ```
 
 22. Game Play Analysis IV  
+
+## Solution
+
 ```sql
 SELECT ROUND(COUNT(DISTINCT player_id)/ (SELECT COUNT( DISTINCT player_id) FROM Activity),2) AS fraction
 FROM Activity
@@ -278,7 +284,10 @@ WHERE (player_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN (
     GROUP BY player_id);
 ```
 
-23. Sorting and Grouping – Number of Unique Subjects Taught by Each Teacher  
+23. Sorting and Grouping – Number of Unique Subjects Taught by Each Teacher 
+
+## Solution
+ 
 ```sql
 SELECT teacher_id, COUNT(DISTINCT subject_id) AS cnt
 FROM Teacher
@@ -286,6 +295,9 @@ GROUP BY teacher_id;
 ```
 
 24. User Activity for the Past 30 Days I  
+
+## Solution
+
 ```sql
 SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users
 FROM Activity
@@ -295,6 +307,9 @@ GROUP BY day;
 ```
 
 25. Product Sales Analysis III  
+
+## Solution
+
 ```sql
 SELECT product_id, year AS first_year, quantity, price
 FROM Sales
@@ -305,6 +320,9 @@ WHERE (product_id, year) IN(
 ```
 
 26. Classes More Than 5 Students  
+
+## Solution
+
 ```sql
 SELECT class
 FROM Courses
@@ -313,6 +331,9 @@ HAVING count(student)>=5;
 ```
 
 27. Find Followers Count  
+
+## Solution
+
 ```sql
 SELECT user_id, count(follower_id) AS followers_count
 FROM Followers
@@ -321,6 +342,9 @@ ORDER BY user_id;
 ```
 
 28. Biggest Single Number  
+
+## Solution
+
 ```sql
 SELECT MAX(num) AS num
 FROM MyNumbers
@@ -332,6 +356,9 @@ WHERE num IN(
 ```
 
 29. Customers Who Bought All Products  
+
+## Solution
+
 ```sql
 SELECT customer_id
 FROM Customer
@@ -340,6 +367,9 @@ HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(DISTINCT product_key) FROM Pr
 ```
 
 30. Advanced Select and Joins – The Number of Employees Which Report to Each Employee  
+
+## Solution
+
 ```sql
 SELECT e1.employee_id, e1.name, COUNT(e2.employee_id) AS reports_count, ROUND(AVG(e2.age)) AS average_age
 FROM Employees e1
@@ -350,101 +380,161 @@ ORDER BY e1.employee_id;
 ```
 
 31. Primary Department for Each Employee  
+
+## Solution
+
 ```sql
 
 ```
 
 32. Triangle Judgement  
+
+## Solution
+
 ```sql
 
 ```
 
 33. Consecutive Numbers  
+
+## Solution
+
 ```sql
 
 ```
 
 34. Product Price at a Given Date  
+
+## Solution
+
 ```sql
 
 ```
 
 35. Last Person to Fit in the Bus  
+
+## Solution
+
 ```sql
 
 ```
 
-36. Count Salary Categories  
+36. Count Salary Categories 
+
+## Solution
+ 
 ```sql
 
 ```
 
 37. Subqueries – Employees Whose Manager Left the Company  
+
+## Solution
+
 ```sql
 
 ```
 
-38. Exchange Seats  
+38. Exchange Seats
+
+## Solution
+  
 ```sql
 
 ```
 
 39. Movie Rating  
+
+## Solution
+
 ```sql
 
 ```
 
 40. Restaurant Growth  
+
+## Solution
+
 ```sql
 
 ```
 
 41. Friend Requests II: Who Has the Most Friends  
+
+## Solution
+
 ```sql
 
 ```
 
 42. Investments in 2016  
+
+## Solution
+
 ```sql
 
 ```
 
 43. Department Top Three Salaries  
+
+## Solution
+
 ```sql
 
 ```
 
 44. Advanced String Functions / Regex / Clause – Fix Names in a Table  
+
+## Solution
+
 ```sql
 
 ```
 
 45. Patients With a Condition  
+
+## Solution
+
 ```sql
 
 ```
 
-46. Delete Duplicate Emails  
+46. Delete Duplicate Emails 
+
+## Solution
+ 
 ```sql
 
 ```
 
 47. Second Highest Salary  
+
+## Solution
+
 ```sql
 
 ```
 
-48. Group Sold Products By The Date  
+48. Group Sold Products By The Date 
+
+## Solution
+ 
 ```sql
 
 ```
 
 49. List the Products Ordered in a Period  
+
+## Solution
+
 ```sql
 
 ```
 
 50. Find Users With Valid E-Mails  
+
+## Solution
+
 ```sql
 
 ```
