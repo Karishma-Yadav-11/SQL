@@ -445,7 +445,24 @@ WHERE num = prev_num AND num = next_num;
 ## Solution
 
 ```sql
+SELECT product_id, new_price AS price
+FROM Products
+WHERE (product_id, change_date) IN(
+    SELECT product_id, MAX(change_date)
+    FROM Products
+    WHERE change_date <= '2019-08-16'
+    GROUP BY product_id
+)
 
+UNION
+
+SELECT product_id, 10 AS price
+FROM Products
+WHERE (product_id) NOT IN(
+    SELECT product_id
+    FROM Products
+    WHERE change_date <= '2019-08-16'
+);
 ```
 
 # 35. Last Person to Fit in the Bus  
@@ -453,7 +470,26 @@ WHERE num = prev_num AND num = next_num;
 ## Solution
 
 ```sql
+SELECT q1.person_name
+FROM Queue q1
+INNER JOIN Queue q2
+ON q1.turn >= q2.turn
+GROUP BY q1.turn
+HAVING SUM(q2.weight) <=1000
+ORDER BY q1.turn DESC
+LIMIT 1;
+```
 
+OR
+
+
+```sql
+SELECT person_name
+FROM (
+    SELECT person_name,turn,
+    SUM(weight) OVER (ORDER BY turn) AS weight FROM queue
+    ) p
+WHERE weight <=1000 ORDER BY turn DESC LIMIT 1;
 ```
 
 # 36. Count Salary Categories 
@@ -461,7 +497,17 @@ WHERE num = prev_num AND num = next_num;
 ## Solution
  
 ```sql
-
+SELECT 'Low Salary' AS category, COUNT(income) AS accounts_count
+FROM Accounts
+WHERE income < 20000
+UNION
+SELECT 'Average Salary' AS category, COUNT(income) AS accounts_count
+FROM Accounts
+WHERE income BETWEEN 20000 AND 50000
+UNION
+SELECT 'High Salary' AS category, COUNT(income) AS accounts_count
+FROM Accounts
+WHERE income > 50000;
 ```
 
 # 37. Subqueries – Employees Whose Manager Left the Company  
@@ -469,7 +515,12 @@ WHERE num = prev_num AND num = next_num;
 ## Solution
 
 ```sql
-
+SELECT employee_id
+FROM Employees
+WHERE salary < 30000 AND manager_id NOT IN (
+    SELECT DISTINCT employee_id
+    FROM Employees)
+ORDER BY employee_id;
 ```
 
 # 38. Exchange Seats
