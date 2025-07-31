@@ -568,7 +568,19 @@ LIMIT 1)
 ## Solution
 
 ```sql
-
+SELECT visited_on,
+        (SELECT SUM(amount)
+         FROM Customer
+         WHERE visited_on BETWEEN DATE_SUB(c.visited_on, INTERVAL 6 DAY) AND c.visited_on
+        ) AS amount,
+        (SELECT ROUND(SUM(amount)/7,2)
+         FROM Customer
+         WHERE visited_on BETWEEN DATE_SUB(c.visited_on, INTERVAL 6 DAY) AND c.visited_on
+        ) AS average_amount     
+FROM Customer c
+WHERE visited_on >=(SELECT DATE_ADD(MIN(visited_on), INTERVAL 6 DAY) FROM Customer)
+GROUP BY visited_on
+ORDER BY visited_on;
 ```
 
 # 41. Friend Requests II: Who Has the Most Friends  
@@ -576,7 +588,17 @@ LIMIT 1)
 ## Solution
 
 ```sql
+SELECT id, COUNT(*) AS num
+FROM (SELECT requester_id AS id
+        FROM RequestAccepted 
 
+        UNION ALL
+
+        SELECT accepter_id AS id
+        FROM RequestAccepted ) AS total_friends
+GROUP BY id
+ORDER BY num DESC
+LIMIT 1;
 ```
 
 # 42. Investments in 2016  
@@ -616,7 +638,10 @@ LIMIT 1)
 ## Solution
  
 ```sql
-
+DELETE p1
+FROM Person p1
+INNER JOIN Person p2
+ON p1.email = p2.email AND p1.id > p2.id;
 ```
 
 # 47. Second Highest Salary  
@@ -624,9 +649,29 @@ LIMIT 1)
 ## Solution
 
 ```sql
-
+SELECT MAX(salary) AS SecondHighestSalary
+FROM  Employee
+WHERE salary NOT IN (SELECT MAX(salary) FROM  Employee);
 ```
 
+OR
+
+```sql
+SELECT MAX(salary) AS SecondHighestSalary
+FROM  Employee
+WHERE salary < (SELECT MAX(salary) FROM  Employee);
+```
+
+OR
+
+```sql
+SELECT 
+    (SELECT DISTINCT salary 
+     FROM Employee 
+     ORDER BY salary DESC 
+     LIMIT 1 OFFSET 1) 
+    AS SecondHighestSalary;
+```
 # 48. Group Sold Products By The Date 
 
 ## Solution
