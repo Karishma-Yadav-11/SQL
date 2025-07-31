@@ -614,7 +614,12 @@ LIMIT 1;
 ## Solution
 
 ```sql
-
+SELECT d.name AS Department, e.name AS Employee, e.salary AS Salary 
+FROM (SELECT departmentId, name, salary, DENSE_RANK() OVER (PARTITION BY departmentId ORDER BY salary DESC) AS rnk
+        FROM Employee) e
+JOIN Department d
+ON e.departmentId = d.id
+WHERE rnk <4;
 ```
 
 # 44. Advanced String Functions / Regex / Clause – Fix Names in a Table  
@@ -671,6 +676,15 @@ SELECT
      ORDER BY salary DESC 
      LIMIT 1 OFFSET 1) 
     AS SecondHighestSalary;
+```
+
+OR
+
+```sql
+SELECT MAX(e1.salary) AS SecondHighestSalary 
+FROM Employee e1
+INNER JOIN Employee e2
+ON e1.salary < e2.salary;
 ```
 # 48. Group Sold Products By The Date 
 
