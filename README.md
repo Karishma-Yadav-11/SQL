@@ -691,7 +691,12 @@ ON e1.salary < e2.salary;
 ## Solution
  
 ```sql
-
+SELECT sell_date
+        , COUNT(DISTINCT product) AS num_sold
+        , GROUP_CONCAT(DISTINCT product ORDER BY product) AS products
+FROM Activities
+GROUP BY sell_date
+ORDER BY sell_date;
 ```
 
 # 49. List the Products Ordered in a Period  
@@ -699,7 +704,13 @@ ON e1.salary < e2.salary;
 ## Solution
 
 ```sql
-
+SELECT product_name, SUM(unit) as unit
+FROM Products
+INNER JOIN Orders
+USING(product_id)
+WHERE MONTH(order_date) = 2 AND YEAR(order_date) = 2020
+GROUP BY product_id
+HAVING unit>= 100;
 ```
 
 # 50. Find Users With Valid E-Mails  
@@ -707,7 +718,9 @@ ON e1.salary < e2.salary;
 ## Solution
 
 ```sql
-
+SELECT *
+FROM Users
+WHERE REGEXP_LIKE(mail, '^[A-Za-z]+[A-Za-z0-9\_\.\-]*@leetcode\\.com$', 'c');
 ```
 
 ## Thank you
