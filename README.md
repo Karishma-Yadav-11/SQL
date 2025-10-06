@@ -606,7 +606,16 @@ LIMIT 1;
 ## Solution
 
 ```sql
-
+SELECT ROUND(SUM(tiv_2016), 2) AS tiv_2016
+FROM Insurance
+WHERE tiv_2015 IN ( SELECT tiv_2015
+                    FROM Insurance
+                    GROUP BY tiv_2015
+                    HAVING COUNT(*) > 1) 
+                 AND (lat, lon) IN( SELECT lat, lon
+                                    FROM Insurance
+                                    GROUP BY lat, lon
+                                    HAVING COUNT(*) =1);
 ```
 
 # 43. Department Top Three Salaries  
@@ -627,7 +636,10 @@ WHERE rnk <4;
 ## Solution
 
 ```sql
-
+SELECT user_id
+        , CONCAT(UPPER(LEFT(name,1)) , LOWER(SUBSTRING(name,2))) AS name
+FROM Users
+ORDER BY user_id;
 ```
 
 # 45. Patients With a Condition  
@@ -635,7 +647,10 @@ WHERE rnk <4;
 ## Solution
 
 ```sql
-
+SELECT patient_id, patient_name, conditions 
+FROM Patients
+WHERE conditions LIKE 'DIAB1%' OR conditions LIKE '% DIAB1%'
+ORDER BY patient_id;
 ```
 
 # 46. Delete Duplicate Emails 
